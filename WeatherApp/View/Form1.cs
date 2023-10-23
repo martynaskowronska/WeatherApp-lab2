@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
 using System.Net;
 using System.Xml.Linq;
-using WeatherApp.Controller;
+using WeatherApp.ViewModel;
 using WeatherApp.Model;
 
 namespace WeatherApp
@@ -20,10 +20,10 @@ namespace WeatherApp
 
             City[] cities = await accuWeatherService.GetLocations(textBox1.Text);
 
-            // Dodanie Data Binding - u¿ytkownik widzi nazwê miasta, ale program przechowuje i 
+            // Dodanie Data Binding - uï¿½ytkownik widzi nazwï¿½ miasta, ale program przechowuje i 
             // wykorzystuje klucz miasta.
             listBox1.DataSource = cities;
-            listBox1.DisplayMember = "LocalizedName"; // Wyœwietla nazwê miasta
+            listBox1.DisplayMember = "LocalizedName"; // Wyï¿½wietla nazwï¿½ miasta
             listBox1.ValueMember = "Key";     // Przechowuje klucz miasta
 
         }
@@ -59,15 +59,15 @@ namespace WeatherApp
                 // Zastosowanie architektury MVC
                 textBox2.Text = selectedCity.Country.LocalizedName;
 
-                WeatherAppController weatherAppController = new WeatherAppController(selectedCity, accuWeatherService);
-                string[] weatherData = await weatherAppController.GetData();
+                weatherAppViewModel weatherAppViewModel= new WeatherAppViewModel(selectedCity, accuWeatherService);
+                string[] weatherData = await weatherAppViewModel.GetData();
                 textBox3.Text = weatherData[0];
                 textBox4.Text = weatherData[1];
                 textBox5.Text = weatherData[2];
                 textBox6.Text = weatherData[3];
 
 
-                // Wczeœniej w sekcji widoku by³o wprowadzanie zmiennych i obs³uga metod:
+                // Wczeï¿½niej w sekcji widoku byï¿½o wprowadzanie zmiennych i obsï¿½uga metod:
 
                 // string administrativeArea = selectedCity.AdministrativeArea.LocalizedName;
                 // textBox3.Text = administrativeArea;
